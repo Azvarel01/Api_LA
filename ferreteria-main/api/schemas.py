@@ -90,7 +90,8 @@ class UsuarioUpdate(SQLModel):
 # Esquemas para Categoria
 class CategoriaBase(SQLModel):
     nombre_categoria: str
-    descripcion: str
+    # CAMBIO AQUÍ: Ahora es opcional y con valor por defecto None
+    descripcion: Optional[str] = None
 
 class CategoriaCreate(CategoriaBase):
     pass
@@ -109,8 +110,12 @@ class ProductoBase(SQLModel):
     id_proveedor: Optional[int] = None
     nombre_producto: str
     existencias: int
-    precio: float
-    costo_adquisicion: Optional[float] = None
+    # CAMBIO AQUÍ: `precio` ahora es `precio_venta`
+    precio_venta: float
+    # CAMBIO AQUÍ: `costo_adquisicion` ahora es `precio_compra`
+    precio_compra: Optional[float] = None
+    activo: bool = True # Asegúrate de que este campo también esté presente si lo usas en el modelo
+
 
 class ProductoCreate(ProductoBase):
     pass
@@ -127,8 +132,11 @@ class ProductoUpdate(SQLModel):
     id_proveedor: Optional[int] = None
     nombre_producto: Optional[str] = None
     existencias: Optional[int] = None
-    precio: Optional[float] = None
-    costo_adquisicion: Optional[float] = None
+    # CAMBIO AQUÍ: `precio` ahora es `precio_venta`
+    precio_venta: Optional[float] = None
+    # CAMBIO AQUÍ: `costo_adquisicion` ahora es `precio_compra`
+    precio_compra: Optional[float] = None
+    activo: Optional[bool] = None # Asegúrate de que este campo también esté presente si lo usas en el modelo
 
 
 # Esquemas para Detalles_Venta (usados como parte de Venta)
@@ -145,8 +153,15 @@ class DetallesVentaRead(DetallesVentaBase):
     id_venta: int # Incluido para referencia en el esquema de lectura
 
 # Esquema para DetallesVenta con información de Producto (para VentaReadWithRelations)
-class ProductoReadSimple(ProductoRead): # Versión simple del producto para anidamiento
-    pass
+# Aquí también debemos asegurar que ProductoReadSimple use los nuevos nombres de precio
+class ProductoReadSimple(SQLModel): # Hereda de SQLModel para tener los campos
+    id_producto: int
+    nombre_producto: str
+    existencias: int
+    precio_venta: float # Usar el nombre de campo correcto
+    precio_compra: Optional[float] = None # Usar el nombre de campo correcto
+    activo: bool # Asegúrate de que este campo también esté presente si lo usas en el modelo
+
 
 class DetallesVentaReadWithProduct(DetallesVentaRead):
     producto: Optional[ProductoReadSimple] = None
