@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.Python/
+.env/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+*.swp
+*.log
+*.sqlite3 # Si usas SQLite como DB, para no subir el archivo de la DB local
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Node.js (si alguna vez añades npm/node_modules en frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Frontend (otros)
+dist/
+build/
+
+# Archivos de IDEs
+.vscode/
+.idea/

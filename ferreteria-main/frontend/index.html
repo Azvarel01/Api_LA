@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Ferretería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Administración de Ferretería</h1>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-button active" data-tab="clientes">Clientes</button>
+        <button class="tab-button" data-tab="proveedores">Proveedores</button>
+        <button class="tab-button" data-tab="usuarios">Usuarios</button>
+        <button class="tab-button" data-tab="categorias">Categorías</button>
+        <button class="tab-button" data-tab="productos">Productos</button>
+        <button class="tab-button" data-tab="ventas">Ventas</button>
+    </nav>
+
+    <main class="tab-content">
+        <section id="clientes" class="tab-pane active">
+            <h2>Gestión de Clientes</h2>
+            <form id="clienteForm">
+                <input type="hidden" id="clienteId">
+                <input type="text" id="clienteNombre" placeholder="Nombre" required>
+                <input type="email" id="clienteCorreo" placeholder="Correo" required>
+                <input type="tel" id="clienteTelefono" placeholder="Teléfono (Opcional)">
+                <input type="text" id="clienteDireccion" placeholder="Dirección (Opcional)">
+                <label>Activo: <input type="checkbox" id="clienteActivo" checked></label>
+                <button type="submit" id="submitClienteBtn">Agregar Cliente</button>
+                <button type="button" id="cancelClienteEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Clientes</h3>
+            <div id="clientesContainer" class="list-container"></div>
+        </section>
+
+        <section id="proveedores" class="tab-pane">
+            <h2>Gestión de Proveedores</h2>
+            <form id="proveedorForm">
+                <input type="hidden" id="proveedorId">
+                <input type="text" id="proveedorNombre" placeholder="Nombre" required>
+                <input type="email" id="proveedorCorreo" placeholder="Correo" required>
+                <input type="tel" id="proveedorTelefono" placeholder="Teléfono (Opcional)">
+                <input type="text" id="proveedorDireccion" placeholder="Dirección (Opcional)">
+                <label>Activo: <input type="checkbox" id="proveedorActivo" checked></label>
+                <button type="submit" id="submitProveedorBtn">Agregar Proveedor</button>
+                <button type="button" id="cancelProveedorEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Proveedores</h3>
+            <div id="proveedoresContainer" class="list-container"></div>
+        </section>
+
+        <section id="usuarios" class="tab-pane">
+            <h2>Gestión de Usuarios</h2>
+            <form id="usuarioForm">
+                <input type="hidden" id="usuarioId">
+                <input type="text" id="usuarioNombreUsuario" placeholder="Nombre de Usuario" required>
+                <input type="password" id="usuarioContraseña" placeholder="Contraseña (solo para crear/actualizar)" autocomplete="new-password">
+                <input type="text" id="usuarioNombreCompleto" placeholder="Nombre Completo" required>
+                <input type="email" id="usuarioCorreo" placeholder="Correo" required>
+                <select id="usuarioRol" required>
+                    <option value="">Selecciona Rol</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Visor">Visor</option>
+                </select>
+                <label>Activo: <input type="checkbox" id="usuarioActivo" checked></label>
+                <button type="submit" id="submitUsuarioBtn">Agregar Usuario</button>
+                <button type="button" id="cancelUsuarioEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Usuarios</h3>
+            <div id="usuariosContainer" class="list-container"></div>
+        </section>
+
+        <section id="categorias" class="tab-pane">
+            <h2>Gestión de Categorías</h2>
+            <form id="categoriaForm">
+                <input type="hidden" id="categoriaId">
+                <input type="text" id="categoriaNombre" placeholder="Nombre de Categoría" required>
+                <input type="text" id="categoriaDescripcion" placeholder="Descripción (Opcional)">
+                <button type="submit" id="submitCategoriaBtn">Agregar Categoría</button>
+                <button type="button" id="cancelCategoriaEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Categorías</h3>
+            <div id="categoriasContainer" class="list-container"></div>
+        </section>
+
+        <section id="productos" class="tab-pane">
+            <h2>Gestión de Productos</h2>
+            <form id="productoForm">
+                <input type="hidden" id="productoId">
+                <input type="text" id="productoNombre" placeholder="Nombre del Producto" required>
+                <textarea id="productoDescripcion" placeholder="Descripción (Opcional)"></textarea>
+                <input type="number" id="productoPrecioCompra" placeholder="Precio de Compra" step="0.01" required>
+                <input type="number" id="productoPrecioVenta" placeholder="Precio de Venta" step="0.01" required>
+                <input type="number" id="productoExistencias" placeholder="Existencias" required>
+                <select id="productoCategoriaId" required>
+                    <option value="">Selecciona Categoría</option>
+                    </select>
+                <select id="productoProveedorId" required>
+                    <option value="">Selecciona Proveedor</option>
+                    </select>
+                <label>Activo: <input type="checkbox" id="productoActivo" checked></label>
+                <button type="submit" id="submitProductoBtn">Agregar Producto</button>
+                <button type="button" id="cancelProductoEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Productos</h3>
+            <div id="productosContainer" class="list-container"></div>
+        </section>
+
+        <section id="ventas" class="tab-pane">
+            <h2>Gestión de Ventas</h2>
+            <form id="ventaForm">
+                <input type="hidden" id="ventaId">
+                <label for="ventaClienteId">Cliente:</label>
+                <select id="ventaClienteId" required>
+                    <option value="">Selecciona Cliente</option>
+                    </select>
+                <label for="ventaUsuarioId">Usuario:</label>
+                <select id="ventaUsuarioId" required>
+                    <option value="">Selecciona Usuario</option>
+                    </select>
+                <label for="ventaFecha">Fecha de Venta:</label>
+                <input type="datetime-local" id="ventaFecha" required>
+                <label for="ventaTotal">Total (Calculado automáticamente):</label>
+                <input type="number" id="ventaTotal" step="0.01" placeholder="Total" readonly>
+
+                <h3>Detalles de la Venta</h3>
+                <div id="ventaDetallesContainer">
+                    <div class="detalle-venta-item">
+                        <label for="detalleProducto0">Producto:</label>
+                        <select class="detalle-producto" id="detalleProducto0" data-index="0" required>
+                            <option value="">Selecciona Producto</option>
+                        </select>
+                        <label for="detalleCantidad0">Cantidad:</label>
+                        <input type="number" class="detalle-cantidad" id="detalleCantidad0" data-index="0" value="1" min="1" required>
+                        <label for="detallePrecioUnitario0">Precio Unitario:</label>
+                        <input type="number" class="detalle-precio-unitario" id="detallePrecioUnitario0" data-index="0" step="0.01" readonly>
+                        <button type="button" class="remove-detalle-btn" style="display: none;">Remover</button>
+                    </div>
+                </div>
+                <button type="button" id="addDetalleVenta">Añadir Otro Producto</button>
+                <p class="warning-message" id="stockWarning" style="color: red; display: none;">Advertencia: Stock insuficiente para algunos productos.</p>
+
+                <button type="submit" id="submitVentaBtn">Agregar Venta</button>
+                <button type="button" id="cancelVentaEdit" class="cancel-btn" style="display: none;">Cancelar Edición</button>
+            </form>
+            <h3>Lista de Ventas</h3>
+            <div id="ventasContainer" class="list-container"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
